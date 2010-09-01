@@ -7,7 +7,7 @@ use Plack::Request;
 
 use Authen::Htpasswd;
 use MIME::Base64;
-use Path::Class;
+use Path::Class ();
 
 sub prepare_app {
     my $self = shift;
@@ -51,7 +51,7 @@ sub authenticate {
         if defined $self->file;
 
     my $req = Plack::Request->new($env);
-    my $dir = dir($self->file_root);
+    my $dir = Path::Class::Dir->new($self->file_root);
     my @htpasswd = reverse
                    map { $_->file('.htpasswd')->stringify }
                    map { $dir = $dir->subdir($_) }
