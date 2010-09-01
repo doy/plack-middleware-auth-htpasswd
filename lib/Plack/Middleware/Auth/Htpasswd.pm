@@ -37,7 +37,10 @@ sub call {
 sub _check_password {
     my $self = shift;
     my ($file, $user, $pass) = @_;
-    return Authen::Htpasswd->new($file)->check_user_password($user, $pass);
+    my $htpasswd = Authen::Htpasswd->new($file);
+    my $htpasswd_user = $htpasswd->lookup_user($user);
+    return unless $htpasswd_user;
+    return $htpasswd_user->check_password($pass);
 }
 
 sub authenticate {
