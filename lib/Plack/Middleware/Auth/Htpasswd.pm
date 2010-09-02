@@ -101,12 +101,14 @@ sub authenticate {
     return $self->_check_password($self->file, $user, $pass)
         if defined $self->file;
 
-    my $req = Plack::Request->new($env);
+    my $path = Plack::Request->new($env)->path;
     my $dir = Path::Class::Dir->new($self->file_root);
-    my @htpasswd = reverse
-                   map { $_->file('.htpasswd')->stringify }
-                   map { $dir = $dir->subdir($_) }
-                   split m{/}, $req->path;
+    my @htpasswd = $path ne '/'
+        ? reverse
+          map { $_->file('.htpasswd')->stringify }
+          map { $dir = $dir->subdir($_) }
+          split m{/}, $path
+        : ($dir->file('.htpasswd')->stringify);
 
     for my $htpasswd (@htpasswd) {
         next unless -f $htpasswd && -r _;
