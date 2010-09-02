@@ -145,6 +145,13 @@ L<Plack::Middleware::Auth::Basic>
 Large parts of this code were modeled after (read: stolen from)
 L<Plack::Middleware::Auth::Basic> by Tatsuhiko Miyagawa.
 
+=begin Pod::Coverage
+
+  unauthorized
+  authenticate
+
+=end Pod::Coverage
+
 =cut
 
 1;
