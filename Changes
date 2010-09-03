@@ -1,4 +1,6 @@
 Revision history for Plack-Middleware-Auth-Htpasswd
 
 {{$NEXT}}
+
+0.01  2010-09-03
       - Initial release
