@@ -73,7 +73,9 @@ sub call {
         unless $auth && $auth =~ /^Basic (.*)$/;
 
     my $auth_string = $1;
-    my ($user, $pass) = split /:/, (MIME::Base64::decode($auth_string) || ":");
+    my ($user, $pass) = split /:/, (
+        MIME::Base64::decode($auth_string . '==') || ":"
+    );
     $pass = '' unless defined $pass;
 
     if ($self->authenticate($env, $user, $pass)) {
