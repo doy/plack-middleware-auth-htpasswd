@@ -1,6 +1,8 @@
 Revision history for Plack-Middleware-Auth-Htpasswd
 
 {{$NEXT}}
+
+0.02  2010-09-18
       - with Plack-0.9949, this can just become a subclass of ::Auth::Basic.
 
 0.01  2010-09-03
