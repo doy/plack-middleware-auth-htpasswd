@@ -32,7 +32,7 @@ my $data_root = file(__FILE__)->dir->subdir('data', '02');
         }
 
         {
-            my $res = $cb->(GET "/", 'Authorization' => 'Basic Zm9vOjEyMzQ');
+            my $res = $cb->(GET "/", 'Authorization' => 'Basic Zm9vOjEyMzQ=');
             is($res->code, 200, "authorized request gets 200");
             is($res->content, 'Hello foo: /', "and gets the right content");
         }
@@ -44,21 +44,21 @@ my $data_root = file(__FILE__)->dir->subdir('data', '02');
 
         {
             my $res = $cb->(GET "/bar.txt",
-                                'Authorization' => 'Basic Zm9vOjEyMzQ');
+                                'Authorization' => 'Basic Zm9vOjEyMzQ=');
             is($res->code, 200, "authorized request gets 200");
             is($res->content, 'Hello foo: /bar.txt',
                "and gets the right content");
         }
 
         {
-            my $res = $cb->(GET "/bar", 'Authorization' => 'Basic Zm9vOjEyMzQ');
+            my $res = $cb->(GET "/bar", 'Authorization' => 'Basic Zm9vOjEyMzQ=');
             is($res->code, 200, "authorized request gets 200");
             is($res->content, 'Hello foo: /bar', "and gets the right content");
         }
 
         {
             my $res = $cb->(GET "/bar/baz.txt",
-                                'Authorization' => 'Basic Zm9vOjEyMzQ');
+                                'Authorization' => 'Basic Zm9vOjEyMzQ=');
             is($res->code, 200, "authorized request gets 200");
             is($res->content, 'Hello foo: /bar/baz.txt',
                "and gets the right content");
@@ -66,13 +66,13 @@ my $data_root = file(__FILE__)->dir->subdir('data', '02');
 
         {
             my $res = $cb->(GET "/bar/baz",
-                                'Authorization' => 'Basic Zm9vOjEyMzQ');
+                                'Authorization' => 'Basic Zm9vOjEyMzQ=');
             is($res->code, 401, "user foo isn't authorized for this path");
         }
 
         {
             my $res = $cb->(GET "/bar/baz",
-                                'Authorization' => 'Basic YmF6OjQzMjE');
+                                'Authorization' => 'Basic YmF6OjQzMjE=');
             is($res->code, 200, "but user baz is");
             is($res->content, 'Hello baz: /bar/baz',
                "and gets the right content");
@@ -80,13 +80,13 @@ my $data_root = file(__FILE__)->dir->subdir('data', '02');
 
         {
             my $res = $cb->(GET "/bar/baz/quux.txt",
-                                'Authorization' => 'Basic Zm9vOjEyMzQ');
+                                'Authorization' => 'Basic Zm9vOjEyMzQ=');
             is($res->code, 401, "user foo isn't authorized for this path");
         }
 
         {
             my $res = $cb->(GET "/bar/baz/quux.txt",
-                                'Authorization' => 'Basic YmF6OjQzMjE');
+                                'Authorization' => 'Basic YmF6OjQzMjE=');
             is($res->code, 200, "but user baz is");
             is($res->content, 'Hello baz: /bar/baz/quux.txt',
                "and gets the right content");
@@ -99,7 +99,7 @@ my $data_root = file(__FILE__)->dir->subdir('data', '02');
 
         {
             my $res = $cb->(GET "/rab/zab",
-                                'Authorization' => 'Basic Zm9vOjEyMzQ');
+                                'Authorization' => 'Basic Zm9vOjEyMzQ=');
             is($res->code, 200, "authorized request gets 200");
             is($res->content, 'Hello foo: /rab/zab',
                "and gets the right content");
@@ -147,7 +147,7 @@ my $data_root = file(__FILE__)->dir->subdir('data', '02');
         my $cb = shift;
 
         {
-            my $res = $cb->(GET "/", 'Authorization' => 'Basic Zm9vOjEyMzQ');
+            my $res = $cb->(GET "/", 'Authorization' => 'Basic Zm9vOjEyMzQ=');
             is($res->code, 401, "don't look up above file_root for .htpasswd");
         }
     };

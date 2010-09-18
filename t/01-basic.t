@@ -31,21 +31,21 @@ use Plack::Builder;
 
         {
             my $res = $cb->(
-                GET "/", "Authorization" => "Basic dGVzdDplZGNiYQ",
+                GET "/", "Authorization" => "Basic dGVzdDplZGNiYQ==",
             );
             is($res->code, 401, "request with wrong password gets 401");
         }
 
         {
             my $res = $cb->(
-                GET "/", "Authorization" => "Basic dHNldDphYmNkZQ",
+                GET "/", "Authorization" => "Basic dHNldDphYmNkZQ==",
             );
             is($res->code, 401, "request with unknown username gets 401");
         }
 
         {
             my $res = $cb->(
-                GET "/", "Authorization" => "Basic dGVzdDphYmNkZQ",
+                GET "/", "Authorization" => "Basic dGVzdDphYmNkZQ==",
             );
             is($res->code, 200, "valid authentication succeeds");
             is($res->content, "Hello test", "and gets the right content");
